@@ -26,3 +26,4 @@ body{font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rend
 @media(max-width:800px){.links{top:70px}}
 /* Ícones Lucide: proporções e alinhamento consistentes */
 .feature-strip svg{width:24px;height:24px;stroke-width:1.8;flex-shrink:0}.overview-icon svg,.station-symbol svg,.partner-icon svg,.directions svg,.location-button svg{stroke-width:1.8}.station-symbol{background:#e8f2fc;color:#0057a8}.directions{color:#0057a8}.directions:hover{background:#e8f2fc;border-color:#a7c9e8}.location-button{gap:9px}.partner-icon{display:grid;place-items:center}.feature-strip>div>span{min-width:0}
+.footer-right{text-align:center;align-items:center}.footer-right .publisher-logo{align-self:center}.footer-right small{text-align:center}@media(max-width:520px){.footer-right{align-items:center;text-align:center}.footer-right .publisher-logo{align-self:center}}
