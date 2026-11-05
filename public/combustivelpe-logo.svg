@@ -8,6 +8,6 @@
     <circle cx="56" cy="32" r="3" fill="#fff"/>
   </g>
   <g id="wordmark" font-family="Manrope, Arial, sans-serif" font-weight="800">
-    <text x="126" y="80" fill="#fff" font-size="43" letter-spacing="-1.8">COMBUSTÍVEL<tspan fill="#f7c600"> PE</tspan></text>
+    <text x="126" y="80" fill="#fff" font-size="43" letter-spacing="-1.4"><tspan font-size="52">C</tspan>ombustível<tspan fill="#f7c600"> PE</tspan></text>
   </g>
 </svg>
