@@ -35,3 +35,5 @@ footer{background:#082a50;color:#fff;border-top:1px solid #20476c}.footer-copyri
 footer{background:#fff;color:#102b42;border-top:1px solid #e2e8ed}.footer-copyright,.footer-right span,.footer-right small,.footer-inner p{color:#41576a}.footer-right .publisher-logo{box-sizing:border-box;background:transparent;border-radius:0;padding:0;box-shadow:none}@media(max-width:700px){.footer-spacer{display:none}}
 .publisher-link{display:inline-flex;align-items:center;justify-content:center;border-radius:4px}.publisher-link:focus-visible{outline:3px solid #0057a8;outline-offset:4px}
 
+/* A abertura e os destaques ocupam a primeira tela em monitores. */
+@media (min-width:801px) and (min-height:600px){.hero{min-height:calc(100svh - 138px)}.hero-grid{min-height:calc(100svh - 138px);display:flex;align-items:center}.hero-copy{padding:48px 0 72px}}
