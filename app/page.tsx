@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 const StationMap = dynamic(() => import("./StationMap"), { ssr: false, loading: () => <div className="map-loading">Carregando mapa…</div> });
 import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronDown, Compass, Fuel, Info, MapPin, Menu, Navigation, Search, SlidersHorizontal, Sparkles, TrendingDown, X } from "lucide-react";
@@ -19,6 +19,21 @@ const fuels: FuelType[] = ["Gasolina comum", "Etanol", "Diesel S10"];
 const brl = (value: number) => value.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 export default function Home() {
+  useEffect(() => {
+    if (window.location.hash) window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    const navigate = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+      if (!target) return;
+      const id = target.getAttribute("href")?.slice(1);
+      const section = id ? document.getElementById(id) : null;
+      if (!section) return;
+      event.preventDefault();
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    };
+    document.addEventListener("click", navigate);
+    return () => document.removeEventListener("click", navigate);
+  }, []);
   const [fuel, setFuel] = useState<FuelType>("Gasolina comum");
   const [city, setCity] = useState("Todas as cidades");
   const [query, setQuery] = useState("");
@@ -35,7 +50,7 @@ export default function Home() {
   return <main>
     <div className="topline"><div className="wrap top-inner"><span>UM GUIA PARA IR MAIS LONGE</span><span>Uma plataforma do <b>Estado de Pernambuco</b> <ArrowUpRight size={12}/></span></div></div>
     <header className="header"><div className="wrap nav"><a className="brand" href="#inicio" aria-label="Combustível PE, início"><span className="brand-icon"><Fuel size={22}/></span><span>combustível<span className="brand-pe">pe</span><small>ESTADO DE PERNAMBUCO</small></span></a><nav className={menuOpen ? "links open" : "links"}><a className="active" href="#precos" onClick={() => setMenuOpen(false)}>Consultar preços</a><a href="#como-funciona" onClick={() => setMenuOpen(false)}>Como funciona</a><a href="#parceiros" onClick={() => setMenuOpen(false)}>Para parceiros</a></nav><a className="nav-cta" href="#precos">Encontrar postos <ArrowUpRight size={16}/></a><button className="menu" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen}>{menuOpen ? <X/> : <Menu/>}</button></div></header>
-    <section id="inicio" className="hero"><div className="wrap hero-grid"><div className="hero-copy"><div className="eyebrow"><span className="dot"/> PERNAMBUCO EM MOVIMENTO</div><h1>ABASTEÇA<br/><em>SUAS ESCOLHAS.</em></h1><p>Compare preços, encontre postos e siga viagem com a informação certa para você.</p><div className="hero-actions"><a className="hero-button" href="#precos"><MapPin size={17}/> ENCONTRAR POSTOS <ArrowRight size={17}/></a><a className="hero-secondary" href="#precos">VER PREÇOS <ArrowDownRight size={17}/></a></div><div className="hero-caption">BR-232 · PERNAMBUCO <span> / </span> IMAGEM ILUSTRATIVA</div></div></div></section>
+    <section id="inicio" className="hero"><div className="wrap hero-grid"><div className="hero-copy"><div className="eyebrow"><span className="dot"/> PERNAMBUCO EM MOVIMENTO</div><h1>ABASTEÇA<br/><em>SUAS ESCOLHAS.</em></h1><p>Compare preços, encontre postos e siga viagem com a informação certa para você.</p><div className="hero-actions"><a className="hero-button" href="#precos"><MapPin size={17}/> ENCONTRAR POSTOS <ArrowRight size={17}/></a><a className="hero-secondary" href="#precos">VER PREÇOS <ArrowDownRight size={17}/></a></div></div></div></section>
     <div className="wrap feature-strip"><div><Search/><span><strong>COMPARE PREÇOS</strong><small>Escolha com mais informação</small></span></div><div><MapPin/><span><strong>ENCONTRE POSTOS</strong><small>Explore as opções no mapa</small></span></div><div><Fuel/><span><strong>ESCOLHA O COMBUSTÍVEL</strong><small>Gasolina, etanol ou diesel</small></span></div></div>
     <div className="demo-bar"><div className="wrap"><Info size={17}/><span><strong>Você está vendo uma demonstração.</strong> Postos e preços são fictícios e não representam cotações reais.</span></div></div>
     <section id="precos" className="prices-section"><div className="wrap"><div className="section-heading"><div><div className="section-kicker"><span>01</span> ENCONTRE O SEU POSTO</div><h2>COMPARE. ESCOLHA.<br/><em>SIGA EM FRENTE.</em></h2><p>Escolha o combustível e compare os preços na sua região.</p></div><div className="heading-stamp"><span>INFORMAÇÃO<br/>NO TANQUE</span><Sparkles size={24}/></div></div>
